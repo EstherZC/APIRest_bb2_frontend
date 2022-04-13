@@ -1,0 +1,6 @@
+.footer-container{
+    color:rgb(39, 190, 190);
+    flex-direction: column;
+    justify-content:flex-end;
+    text-align: center;
+}
