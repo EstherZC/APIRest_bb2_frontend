@@ -10,6 +10,8 @@ function App() {
     <Router>
       <Switch >
         <Route exact  path="/" element={<Login/>}/>
+        <Route exact  path="/catalogue" element={<Catalogue/>}/>
+        <Route exact  path="/catalogue/details" element={<ItemInformation/>}/>
       </Switch>
     </Router>
 

@@ -29,7 +29,6 @@ class Login extends Component
         LoginService.get_Token(username, password).then(postRequest =>{
             if(postRequest.status === 200){
                 window.localStorage.setItem("token", postRequest.token);
-                window.localStorage.setItem("user", username)
                 window.location.href = '/catalogue'; 
             }else{
                this.setState({

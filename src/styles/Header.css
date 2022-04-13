@@ -21,3 +21,15 @@ p, .table-items, .title {
       font-size: large;
       color: white;
   }
+  .header-button{
+      border: none;
+      background-color: rgb(39, 190, 190);;
+      font-size: medium;
+      color: rgb(83, 64, 11);
+      font-weight: bold;
+      text-align: right;
+  }
+  .header-button:hover{
+      color:brown;
+      
+  }
