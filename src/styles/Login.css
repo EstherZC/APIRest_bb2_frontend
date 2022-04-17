@@ -1,45 +1,58 @@
 .login-container{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    justify-content: center;
+    margin-top: 30px;
 }
 .login-form {
-    background-color: rgb(39, 190, 190);
-    display:flex;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     border-radius: 8px;
-    min-width: 100px;
-    min-height: 100px;
-    width: calc(300px + 2vmin);
-    height: calc(350px + 2vmin);
-   
-    margin-top: 20px;
+    background: rgb(39, 190, 190);
 }
 .login-form form {
-    margin-left: 65px;
+    margin-top: 20px;
+    margin-left: 40px;
 }
 .login-form form input {
+    width: 90%;
+    height: 30px;
     margin-top: 5px;
-    margin-bottom: 5px;
-    height: 20px;
+    margin-bottom: 15px;
     background: rgb(130, 233, 233);
     border: none;
+    border-radius: 3px;
 }
 .login-form form label {
     color: aliceblue;
     font-weight: bold;
-    display: block;
 }
 .button-login {
-    margin-left: 10px;
     margin-top: 20px;
+    width: 90%;
+    height: 30px;
     border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    color: rgb(14, 91, 97);
     background: aliceblue;
-    width: 150px;
-    height: 20px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.button-login:hover {
+    background: rgb(14, 91, 97);
+    color: aliceblue;
 }
 .error-login {
     color: crimson;
     font-weight: bold;
-    margin-left: 75px;
+    text-align: center;
+}
+.msg-login{
+    color: rgb(88, 139, 10);
+    font-weight: bold;
+    text-align: center;
 }

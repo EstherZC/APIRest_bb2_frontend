@@ -1,6 +1,9 @@
 .footer-container{
-    color:rgb(39, 190, 190);
-    flex-direction: column;
-    justify-content:flex-end;
+    color:aliceblue;
     text-align: center;
+    background-color:  rgb(39, 190, 190);
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 999999;
 }

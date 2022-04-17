@@ -2,6 +2,8 @@ import React, {Component } from 'react';
 import ItemService from '../service/ItemService';
 import Footer from './Footer';
 import Header from './Header';
+import '../styles/Catalogue.css';
+import DateHelper from '../utils/DateHelper';
 
 class Catalogue extends Component
 {
@@ -12,15 +14,16 @@ class Catalogue extends Component
             items: [],
             msgError: ''
         }
-        this.load_Items = this.load_Items.bind(this);
+        this.load_All_Items = this.load_All_Items.bind(this);
+        this.load_Items_By_State = this.load_Items_By_State.bind(this);
         this.create_Table = this.create_Table.bind(this);
         this.create_Table_Row = this.create_Table_Row.bind(this);
-        this.short_Date = this.short_Date_Format.bind(this);
+        this.getSelectedValue = this.getSelectedValue.bind(this);
     }
-    
     async componentDidMount(){
         if(window.localStorage.getItem("token")){
-            this.load_Items();
+            window.history.pushState(null, document.title, window.location.href);
+            this.load_All_Items();
         }else {
             window.location.href = "/";
         }
@@ -38,18 +41,18 @@ class Catalogue extends Component
     }  
 
 
-    load_Info(event){
+    show_Info_Page(event){
         event.preventDefault();
         window.localStorage.setItem('idItem', event.target.value);
+        document.getElementById('filter-state').value = 'all';
         window.location.href = "/catalogue/details";
-        
     }
 
     create_Table_Row(item, isActive){
         var state = (isActive) ? 'Active' : 'Discontinued';
         return (<tr key={item.idItem}>
             <td>
-            <button value={item.idItem} onClick={this.load_Info.bind(this)}>{item.itemCode}</button>
+            <button className='button-info' value={item.idItem} onClick={this.show_Info_Page.bind(this)}>{item.itemCode}</button>
             </td>
             <td>
             {item.description}
@@ -61,7 +64,7 @@ class Catalogue extends Component
                 {item.price}
             </td>
             <td>
-                {this.short_Date_Format(item.creation)}
+                {DateHelper.short_Date_Format(item.creation)}
             </td>
             <td>
                 {item.creator.name}
@@ -69,13 +72,8 @@ class Catalogue extends Component
         </tr>);
     }
 
-    short_Date_Format(date){
-        var shorDate= date.split('T')[0];
-        var elements = shorDate.split('-');
-        return elements[2]+"-"+elements[1]+"-"+elements[0]
-    }
 
-    load_Items(){
+    load_All_Items(){
         ItemService.get_All_Items(window.localStorage.getItem("token")).then(getRequest=>{
             this.setState({
                 items: getRequest.data,
@@ -89,6 +87,32 @@ class Catalogue extends Component
         });
     }
 
+    load_Items_By_State(isActive){
+        ItemService.get_Items_By_State(window.localStorage.getItem("token"), isActive).then(getRequest=>{
+            this.setState({
+                items: getRequest.data,
+                error : ''
+            })
+        }).catch(error =>{
+            this.setState({
+                items: [],
+                msgError : 'Error Load Items - '+error
+            })
+        });
+    }
+    getSelectedValue(){
+        switch(document.getElementById('filter-state').value){
+            case 'discontinued':
+                this.load_Items_By_State(false);
+                return;
+            case 'active':
+                this.load_Items_By_State(true);
+                return;
+            default:
+                this.load_All_Items();
+                return;
+        }
+    }
     render(){
         return (
             <div>
@@ -100,6 +124,12 @@ class Catalogue extends Component
                             <thead >
                                 <tr>
                                     <th className='table-title'>Items</th>
+                                    <th className='table-filter' colSpan='5'>State: 
+                                    <select id='filter-state' className='select-filter' onChange={this.getSelectedValue} >
+                                        <option value='all' className='option-filter'>All</option>
+                                        <option value='active' className='option-filter'>Active</option>
+                                        <option value='discontinued' className='option-filter'>Discontinued</option>    
+                                    </select></th>
                                 </tr>
                                 <tr>
                                     <th className='table-head'>Code</th>

@@ -1,35 +1,44 @@
-p, .table-items, .title {
-    margin-left: 20px;
-}
+
 .header-container {
     background-color:  rgb(39, 190, 190);
-    min-height: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow: hidden;
+    padding: 2px 1px;
+    color: white;
+    font-size: 20px;
   }
 
   .header-title{
+      color: white;
+      position: relative;
       text-align: center;
-      margin-bottom: 0px;
-      color: white;
   }
+  .header-logout{
+    text-decoration: none;
+    float:right;
+    margin-right: 4px;
+    color: darkcyan;
+    font-weight: bold;
+  }
+  .header-logout {
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    color: rgb(14, 91, 97);
+    background: aliceblue;
+}
+.header-logout:hover {
+    background: rgb(14, 91, 97);
+    color: aliceblue;
+}
 
-  .header-username{
-      font-size: large;
-      color: white;
-  }
-  .header-button{
-      border: none;
-      background-color: rgb(39, 190, 190);;
-      font-size: medium;
-      color: rgb(83, 64, 11);
-      font-weight: bold;
-      text-align: right;
-  }
-  .header-button:hover{
-      color:brown;
-      
-  }
+.header-back{
+    border: none;
+    font-weight: bold;
+    margin-left: 4px;
+    border-radius: 4px;
+    color: rgb(14, 91, 97);
+    background:  rgb(39, 190, 190);
+}
+.header-back:hover {
+  color: rgb(146, 236, 236);
+}

@@ -1,0 +1,31 @@
+.catalogue-container{
+    margin-left: 30px;
+}
+.table-items {
+    text-align: left;
+    border-collapse: collapse;
+    width: 99%;
+}
+
+.table-items td, .table-head{
+    padding: 5px 5px 5px 5px;
+    border: 1px darkcyan solid;
+}
+.table-head{
+    background-color: rgb(6, 155, 155);
+    color: aliceblue;
+}
+.table-title, .title, .table-filter{
+    color: darkcyan;
+}
+.table-filter{
+    text-align: right;
+}
+.button-info{
+    border: none;
+    background-color: white;
+    font-weight: bold;
+}
+.button-info:hover{
+    color:  rgb(39, 190, 190);
+}

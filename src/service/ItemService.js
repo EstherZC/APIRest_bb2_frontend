@@ -22,6 +22,21 @@ class ItemService extends Component
         return await getRequest;
     }
 
+    static async get_Items_By_State(token, state)
+    {
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const getRequest = await axios.get(ApiRestURL.URL_FIND_ITEMS_BY_State+state);
+        return await getRequest;
+    }
+
+    static async update_Item(token, item){
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const putRequest = await axios.put(ApiRestURL.URL_UPDATE_ITEM, item);
+        return await putRequest;
+    }
+
     
 }
 
