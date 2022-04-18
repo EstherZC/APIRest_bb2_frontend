@@ -1,0 +1,52 @@
+.desactivate-container{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    justify-content: center;
+}
+.desactivate-form {
+    width: 35%;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: rgb(39, 190, 190);
+}
+.desactivate-form form {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.desactivate-form textarea {
+   width: 90%;
+}
+.desactivate-form form label {
+    color: aliceblue;
+    font-weight: bold;
+    display: block;
+}
+.button {
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 40%;
+    height: 30px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    color: rgb(14, 91, 97);
+    background: aliceblue;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.button:hover {
+    background: rgb(14, 91, 97);
+    color: aliceblue;
+}
+.error-desactivate {
+    color: crimson;
+    font-weight: bold;
+    text-align: center;
+}
+.msg-desactivate{
+    color: rgb(88, 139, 10);
+    font-weight: bold;
+    text-align: center;
+}

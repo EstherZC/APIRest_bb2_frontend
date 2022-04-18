@@ -5,7 +5,9 @@ import SupplierService from '../service/SupplierService';
 import ItemService from '../service/ItemService';
 import PriceReductionService from '../service/PriceReductionService';
 import '../styles/Item.css';
+import '../styles/DesactivateItemConfirm.css';
 import DateHelper from '../utils/DateHelper';
+
 
 class ItemInformation extends Component
 {
@@ -17,7 +19,9 @@ class ItemInformation extends Component
             suppliers: [],
             priceReductions: [],
             item:[],
-            msg: ['', '']
+            msg: ['', ''],
+            showHiddenConrim : false,
+            actualState: ''
         }
         this.show_List_Supplier = this.show_List_Supplier.bind(this);
         this.show_Suppliers_Item = this.show_Suppliers_Item.bind(this);
@@ -32,7 +36,7 @@ class ItemInformation extends Component
         if(window.localStorage.getItem("token")){
             SupplierService.get_All_Suppliers(window.localStorage.getItem("token")).then(getRequest=>{
                 this.setState({
-                    suppliers: getRequest.data
+                    suppliers: getRequest.data,
                 })
             }).catch(error =>{
                 this.setState({
@@ -58,7 +62,8 @@ class ItemInformation extends Component
     load_Item_Information(){
         ItemService.get_Item_By_Id(window.localStorage.getItem("token"), window.localStorage.getItem('idItem')).then(getRequest=>{
             this.setState({
-                item: getRequest.data
+                item: getRequest.data,
+                actualState: getRequest.data.state
             })
             if(getRequest.data.length !== 0){
                 this.setState({
@@ -154,6 +159,7 @@ class ItemInformation extends Component
             })
         }
     }
+
     show_List_Price_Reductions(){
         var list;
         if(this.state.priceReductions.length !== 0){
@@ -263,20 +269,37 @@ class ItemInformation extends Component
         });
     }
 
-    change_Item_State(event){
-        event.preventDefault();
-        var item = this.state.item;
-        switch(event.target.value){
-            case 'discontinued':
-                item.state = false;
-                break;
-            default:
-                item.state = true;
-                break;
+    show_Hidden_Confirm(event){
+        event.preventDefault(); 
+        if(this.state.actualState){
+            this.setState({
+                showHiddenConrim : true
+            })
+        }else{
+            this.setState({
+                showHiddenConrim : false
+            })
+            this.change_State(null, true)
         }
-        this.setState({
-            item: item
-        })
+    }
+
+    change_State(e, change){
+        var item = this.state.item;
+       
+        if(item.length !== 0 && change){
+            item.state = !this.state.item.state;
+            this.setState({
+                item: item,
+                actualState: item.state,
+                showHiddenConrim : false
+            })
+        }else{
+            this.setState({
+                showHiddenConrim : false
+            })
+        }
+
+        
     }
     change_Item_Description(event){
         event.preventDefault();
@@ -317,6 +340,10 @@ class ItemInformation extends Component
                     <h1 className='title'>Item Details</h1>
                     <p className={(this.state.msg[0] ==='error')? 'msg-error':'msg-ok'}>{(this.state.msg[0] !=='')? this.state.msg[1]:''}</p>
                     <div className='item-information'>
+                        <div className='desactivate-container'>
+                            <button className='state-item-button' onClick={this.show_Hidden_Confirm.bind(this)}>{(this.state.item.state)?"Desactivate":"Activate"}</button>
+                            {this.state.showHiddenConrim && <DesactivateItemConfirm func={this.change_State.bind(this)}/>}
+                        </div>
                         <form  className='item-form' method='PUT' onSubmit={this.update_Item}>
                             <label >Item Code:</label>
                             <input defaultValue={this.state.item.itemCode} disabled={true} />
@@ -325,10 +352,7 @@ class ItemInformation extends Component
                             <label className='inline-label'>Creation:</label>
                             <input  defaultValue={(this.state.item.length !== 0)?DateHelper.short_Date_Format(this.state.item.creation):''} disabled={true} />
                             <label className='block-label'>State:</label>
-                            <select id='item-select'name='state' className='select-item' onChange={this.change_Item_State.bind(this)} value={(this.state.item.state)?'active':'discontinued'} disabled={!this.state.isCreator}>
-                                <option value='active' className='option-filter'>Active</option>
-                                <option value='discontinued' className='option-filter'>Discontinued</option>    
-                            </select>
+                            <input defaultValue={this.state.item.state} disabled={true} />
                             <label className='block-label'>Description:</label>
                             <textarea rows="5" cols="50" name="description" disabled={!this.state.isCreator} onBlur={this.change_Item_Description.bind(this)} onChange={this.change_Item_Description.bind(this)} value={this.state.item.description}/>
                             <label className='block-label'>Price:</label>
@@ -359,6 +383,58 @@ class ItemInformation extends Component
                 </div>
                 <Footer></Footer>
             </div>            
+        );
+    }
+}
+
+class DesactivateItemConfirm extends Component
+{
+    constructor(props){
+        super(props);
+        this.state ={
+            description : '',
+            msg:''
+        }
+    }
+
+    desactivate_Item(event){
+        event.preventDefault();
+        if(event.target.name === "save" && this.state.description.length !== 0){
+            this.props.func(this, true)
+        }else if (event.target.name === "cancel"){
+            this.props.func(this, false)
+        }else{
+            this.setState({
+                msg : 'Need a reason!'
+            })
+        }
+    }
+
+    change_Item_Description(event){
+        event.preventDefault();
+        console.log(event.target.value)
+        this.setState({
+            description : event.target.value
+        })
+    }
+    render(){
+        return(
+            
+            <div>
+                <div className='desactivate-container'>
+                    
+                    <div className='desactivate-form'>
+                        <form method='POST' >
+                            <label >Reson for desactivation:</label>
+                            <textarea rows="5" cols="50" name="description" onBlur={this.change_Item_Description.bind(this)}  onChange={this.change_Item_Description.bind(this)} />
+                            <button className='button' name='cancel' onClick={this.desactivate_Item.bind(this)} >Cancel</button>
+                            <button className='button' name='save' onClick={this.desactivate_Item.bind(this)} >Save</button>
+                        </form>
+                        <p className={(this.state.msg === 'Loading ...')?'msg-desactivate':'error-desactivate'}>{(this.state.msg !== '')? this.state.msg : ''}</p>
+                    </div>
+                
+                </div>  
+            </div>  
         );
     }
 }
