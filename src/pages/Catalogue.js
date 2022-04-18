@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Header from './Header';
 import '../styles/Catalogue.css';
 import DateHelper from '../utils/DateHelper';
+import AdminHelper from '../utils/AdminHelper';
 
 class Catalogue extends Component
 {
@@ -12,7 +13,7 @@ class Catalogue extends Component
         super();
         this.state = {
             items: [],
-            msgError: ''
+            msg: ''
         }
         this.load_All_Items = this.load_All_Items.bind(this);
         this.load_Items_By_State = this.load_Items_By_State.bind(this);
@@ -20,6 +21,7 @@ class Catalogue extends Component
         this.create_Table_Row = this.create_Table_Row.bind(this);
         this.get_Selected_State = this.get_Selected_State.bind(this);
     }
+
     async componentDidMount(){
         if(window.localStorage.getItem("token")){
             window.history.pushState(null, document.title, window.location.href);
@@ -69,10 +71,31 @@ class Catalogue extends Component
             <td>
                 {item.creator.name}
             </td>
+            {AdminHelper.check_Current_User() && <td> <button className='button-remove' value={item.idItem} onClick={this.remove_Item.bind(this)}>Remove</button></td>}
         </tr>);
     }
 
+    remove_Item(event){
+        event.preventDefault()
+        this.setState({
+            msg : ''
+        })
+        ItemService.remove_Item(window.localStorage.getItem('token'), event.target.value).then(deleteRequest=>{
+            if(deleteRequest.data === 'OK'){
+                this.load_All_Items();
 
+            }else{
+                this.setState({
+                    msg : 'Could not delete the item with id:'
+                })
+            }
+
+        }).catch(error =>{
+            this.setState({
+                msg : 'Could not delete the item with id:'
+            })
+        });
+    }
     load_All_Items(){
         ItemService.get_All_Items(window.localStorage.getItem("token")).then(getRequest=>{
             this.setState({
@@ -82,7 +105,7 @@ class Catalogue extends Component
         }).catch(error =>{
             this.setState({
                 items: [],
-                msgError : 'Error Load Items - '+error
+                msg : 'Error Load Items - '+error
             })
         });
     }
@@ -113,18 +136,16 @@ class Catalogue extends Component
                 return;
         }
     }
-    got_to_New_Item_Page(){
-        window.location.href = "/catalogue/createItem";
-    }
+  
     render(){
         return (
             <div>
                  <Header></Header>
                 <div className='catalogue-container'>
                 <h1 className='title'>Catalogue</h1>
+                    <p>{this.state.msg}</p>
                     <div className='all-items'>
-                        <button className='new-button' onClick={this.got_to_New_Item_Page.bind(this)}>Add Item</button>
-                        <table className='table-items'>
+                         <table className='table-items'>
                             <thead >
                                 <tr>
                                     <th className='table-title'>Items</th>
@@ -142,6 +163,7 @@ class Catalogue extends Component
                                     <th className='table-head'>Price</th>
                                     <th className='table-head'>Creation Date</th>
                                     <th className='table-head'>Creator</th>
+                                    {AdminHelper.check_Current_User() && <th className='table-head'></th>}
                                 </tr>
                             </thead>
                             <tbody className='table-body'>

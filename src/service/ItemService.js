@@ -44,6 +44,12 @@ class ItemService extends Component
         return await postRequest;
     }
 
+    static async remove_Item(token, id){
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const deleteRequest = await axios.delete(ApiRestURL.URL_REMOVE_ITEM+id);
+        return await deleteRequest;
+    }
     
 }
 

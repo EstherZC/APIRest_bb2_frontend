@@ -20,7 +20,7 @@
     font-weight: bold;
   }
   .header-logout {
-    border: none;
+    border: rgb(14, 91, 97) thin solid;
     font-weight: bold;
     border-radius: 4px;
     color: rgb(14, 91, 97);
@@ -41,4 +41,19 @@
 }
 .header-back:hover {
   color: rgb(146, 236, 236);
+}
+.new-button {
+  width: auto;
+  margin-left: 5px;
+  height: 30px;
+  font-weight: bold;
+  border-radius: 8px;
+  color: rgb(14, 91, 97);
+  border: rgb(14, 91, 97) thin solid;
+  background: aliceblue;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.new-button:hover {
+  background: rgb(14, 91, 97);
+  color: aliceblue;
 }

@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Catalogue from './pages/Catalogue';
 import ItemInformation from './pages/ItemInformation';
 import NewItem from './pages/NewItem';
+import Users from './pages/Users';
+import NewUser from './pages/NewUser';
 
 function App() {
   return(
@@ -14,6 +16,8 @@ function App() {
         <Route exact  path="/catalogue" element={<Catalogue/>}/>
         <Route exact  path="/catalogue/details" element={<ItemInformation/>}/>
         <Route exact path='/catalogue/createItem' element={<NewItem/>}/>
+        <Route exact path='/catalogue/users' element={<Users/>}/>
+        <Route exact path='/catalogue/users/createUser' element={<NewUser/>}/>
       </Switch>
     </Router>
 

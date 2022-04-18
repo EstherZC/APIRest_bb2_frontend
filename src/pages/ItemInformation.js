@@ -5,7 +5,7 @@ import SupplierService from '../service/SupplierService';
 import ItemService from '../service/ItemService';
 import PriceReductionService from '../service/PriceReductionService';
 import '../styles/Item.css';
-import '../styles/DesactivateItemConfirm.css';
+import '../styles/Confirm.css'
 import DateHelper from '../utils/DateHelper';
 
 

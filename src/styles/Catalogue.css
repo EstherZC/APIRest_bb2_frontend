@@ -29,20 +29,15 @@
 .button-info:hover{
     color:  rgb(39, 190, 190);
 }
-.new-button {
-    margin-top: 5px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    width: 12%;
-    height: 30px;
+.button-remove{
+    border: none;
+    border-radius: 3px;
+    border: brown thin solid;
+    background-color: aliceblue;
+    color: brown;
     font-weight: bold;
-    border-radius: 8px;
-    color: rgb(14, 91, 97);
-    border: rgb(14, 91, 97) thin solid;
-    background: aliceblue;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.new-button:hover {
-    background: rgb(14, 91, 97);
+.button-remove:hover{
     color: aliceblue;
+    background-color: brown;
 }

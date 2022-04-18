@@ -32,6 +32,7 @@ class Login extends Component
                 })
                 window.localStorage.setItem("token", postRequest.token);
                 window.localStorage.setItem("username", username);
+                window.localStorage.setItem("roles", postRequest.roles)
                 window.location.href = '/catalogue'; 
             }else{
                this.setState({

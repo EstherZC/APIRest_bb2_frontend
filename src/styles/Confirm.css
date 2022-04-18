@@ -11,6 +11,15 @@
     border-radius: 8px;
     background: rgb(39, 190, 190);
 }
+.remove-div {
+    width: 35%;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: rgb(39, 190, 190);
+}
 .desactivate-form form {
     margin-top: 10px;
     margin-left: 20px;
@@ -18,7 +27,7 @@
 .desactivate-form textarea {
    width: 90%;
 }
-.desactivate-form form label {
+.desactivate-form form label, .remove-div label {
     color: aliceblue;
     font-weight: bold;
     display: block;

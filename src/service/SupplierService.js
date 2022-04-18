@@ -28,6 +28,19 @@ class SupplierService extends Component
         const getRequest = await axios.get(ApiRestURL.URL_FIND_SUPPLIER_BY_USERNAME+username);
         return await getRequest;
     }
+    static async remove_Supplier(token, id){
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const deleteRequest = await axios.delete(ApiRestURL.URL_REMOVE_SUPPLIER+id);
+        return await deleteRequest;
+    }
+
+    static async save_Supplier(token, user){
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const postRequest = await axios.post(ApiRestURL.URL_SAVE_SUPPLIER, user);
+        return await postRequest;
+    }
     
 }
 
