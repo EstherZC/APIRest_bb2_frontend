@@ -20,6 +20,14 @@ class SupplierService extends Component
         const getRequest = await axios.get(ApiRestURL.URL_FIND_SUPPLIER_BY_ID+id);
         return await getRequest;
     }
+
+    static async get_Supplier_By_Username(token, username)
+    {
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const getRequest = await axios.get(ApiRestURL.URL_FIND_SUPPLIER_BY_USERNAME+username);
+        return await getRequest;
+    }
     
 }
 

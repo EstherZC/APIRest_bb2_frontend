@@ -37,6 +37,13 @@ class ItemService extends Component
         return await putRequest;
     }
 
+    static async save_Item(token, item){
+        var bearerToken = 'Bearer '+token;
+        axios.defaults.headers.common['Authorization'] = bearerToken;
+        const postRequest = await axios.post(ApiRestURL.URL_SAVE_ITEM, item);
+        return await postRequest;
+    }
+
     
 }
 

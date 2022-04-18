@@ -18,7 +18,7 @@ class Catalogue extends Component
         this.load_Items_By_State = this.load_Items_By_State.bind(this);
         this.create_Table = this.create_Table.bind(this);
         this.create_Table_Row = this.create_Table_Row.bind(this);
-        this.getSelectedValue = this.getSelectedValue.bind(this);
+        this.get_Selected_State = this.get_Selected_State.bind(this);
     }
     async componentDidMount(){
         if(window.localStorage.getItem("token")){
@@ -100,7 +100,7 @@ class Catalogue extends Component
             })
         });
     }
-    getSelectedValue(){
+    get_Selected_State(){
         switch(document.getElementById('filter-state').value){
             case 'discontinued':
                 this.load_Items_By_State(false);
@@ -113,6 +113,9 @@ class Catalogue extends Component
                 return;
         }
     }
+    got_to_New_Item_Page(){
+        window.location.href = "/catalogue/createItem";
+    }
     render(){
         return (
             <div>
@@ -120,12 +123,13 @@ class Catalogue extends Component
                 <div className='catalogue-container'>
                 <h1 className='title'>Catalogue</h1>
                     <div className='all-items'>
+                        <button className='new-button' onClick={this.got_to_New_Item_Page.bind(this)}>Add Item</button>
                         <table className='table-items'>
                             <thead >
                                 <tr>
                                     <th className='table-title'>Items</th>
                                     <th className='table-filter' colSpan='5'>State: 
-                                    <select id='filter-state' className='select-filter' onChange={this.getSelectedValue} >
+                                    <select id='filter-state' className='select-filter' onChange={this.get_Selected_State} >
                                         <option value='all' className='option-filter'>All</option>
                                         <option value='active' className='option-filter'>Active</option>
                                         <option value='discontinued' className='option-filter'>Discontinued</option>    
