@@ -429,7 +429,7 @@ class DesactivateItemConfirm extends Component
                             <label >Reason:</label>
                             <textarea rows="5" cols="50" name="description" onBlur={this.change_Item_Description.bind(this)}  onChange={this.change_Item_Description.bind(this)} />
                             <button className='button' name='cancel' onClick={this.desactivate_Item.bind(this)} >Cancel</button>
-                            <button className='button' name='save' onClick={this.desactivate_Item.bind(this)} >Save</button>
+                            <button className='button' name='save' onClick={this.desactivate_Item.bind(this)} >Change</button>
                         </form>
                         <p className={(this.state.msg === 'Loading ...')?'msg-desactivate':'error-desactivate'}>{(this.state.msg !== '')? this.state.msg : ''}</p>
                     </div>
