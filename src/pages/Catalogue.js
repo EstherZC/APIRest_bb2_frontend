@@ -149,7 +149,7 @@ class Catalogue extends Component
                             <thead >
                                 <tr>
                                     <th className='table-title'>Items</th>
-                                    <th className='table-filter' colSpan='5'>State: 
+                                    <th className='table-filter' colSpan='6'>State: 
                                     <select id='filter-state' className='select-filter' onChange={this.get_Selected_State} >
                                         <option value='all' className='option-filter'>All</option>
                                         <option value='active' className='option-filter'>Active</option>

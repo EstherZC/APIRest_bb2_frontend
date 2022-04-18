@@ -81,7 +81,7 @@ class ItemInformation extends Component
         var list;
         if(this.state.suppliers.length !== 0){
             list = this.state.suppliers.map((it)=>{
-                return <li key={it.username} >{it.name} <button  value ={it.idUser} className='add-button' disabled={!this.state.isCreator} onClick={this.check_Supplier.bind(this)}>Add</button></li>
+                return <li key={it.username} >{it.name} <button  value ={it.idUser} className='add-button'  onClick={this.check_Supplier.bind(this)}>Add</button></li>
             });
         }
         return list;
@@ -131,7 +131,7 @@ class ItemInformation extends Component
         var list;
         if(this.state.item.length !== 0 && this.state.item.suppliers.length !== 0){
             list = this.state.item.suppliers.map((it)=>{
-                return <li key={it.username} value={it.idSupplier}>{it.name} <button  value ={it.idUser} disabled={!this.state.isCreator} className='remove-button' onClick={this.remove_Supplier.bind(this)}>Remove</button></li>
+                return <li key={it.username} value={it.idSupplier}>{it.name}    {this.state.isCreator && <button  value ={it.idUser} className='remove-button' onClick={this.remove_Supplier.bind(this)}>Remove</button>}</li>
             });
         }
         return list;
@@ -216,7 +216,7 @@ class ItemInformation extends Component
         if(this.state.item.length !== 0 && this.state.item.priceReductions.length !== 0){
             list = this.state.item.priceReductions.map((it)=>{
                 return <li key={it.idReduction} value={it.idReduction} >Price reduction: {it.priceReduction} Start date: {it.startDate} End date: {it.endDate} 
-                <button  value ={it.idReduction} className='remove-button' disabled={!this.state.isCreator} onClick={this.remove_Price_Reduction.bind(this)}>Remove</button></li>
+                   {this.state.isCreator &&<button  value ={it.idReduction} className='remove-button' onClick={this.remove_Price_Reduction.bind(this)}>Remove</button>}</li>
             });
         }
         return list;
@@ -342,10 +342,10 @@ class ItemInformation extends Component
                     <h1 className='title'>Item Details</h1>
                     <p className={(this.state.msg[0] ==='error')? 'msg-error':'msg-ok'}>{(this.state.msg[0] !=='')? this.state.msg[1]:''}</p>
                     <div className='item-information'>
-                        <div className='desactivate-container'>
-                            <button className='state-item-button' onClick={this.show_Hidden_Confirm.bind(this)} disabled={!this.state.isCreator}>{(this.state.item.state)?"Desactivate":"Activate"}</button>
+                        {this.state.isCreator && <div className='desactivate-container'>
+                            <button className='state-item-button' onClick={this.show_Hidden_Confirm.bind(this)}>{(this.state.item.state)?"Desactivate":"Activate"}</button>
                             {this.state.showHiddenConrim && <DesactivateItemConfirm func={this.change_State.bind(this)}/>}
-                        </div>
+                        </div>}
                         <form  className='item-form' method='PUT' onSubmit={this.update_Item}>
                             <label >Item Code:</label>
                             <input defaultValue={this.state.item.itemCode} disabled={true} />
@@ -364,20 +364,20 @@ class ItemInformation extends Component
                                 <div className='my-supplier-list'>
                                     {this.show_Suppliers_Item()}
                                 </div>
-                                <div className='supplier-list'>
+                                {this.state.isCreator && <div className='supplier-list'>
                                     {this.show_List_Supplier()}
-                                </div>
+                                </div>}
                             </div>
                             <label className='block-label'>Item Price Reductions:</label>
                             <div className='div'>
                                 <div className='my-price-reduction-list'>
                                     {this.show_Reductions_Item()}
                                 </div>
-                                <div className='price-reduction-list'>
+                                {this.state.isCreator && <div className='price-reduction-list'>
                                     {this.show_List_Price_Reductions()}
-                                </div>
+                                </div>}
                             </div>
-                            <button className='button-item' type='submit' disabled={!this.state.isCreator}>Update</button>
+                            {this.state.isCreator && <button className='button-item' type='submit' >Update</button>}
                         </form>                        
                     </div>
                    
