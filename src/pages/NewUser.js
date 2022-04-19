@@ -86,7 +86,6 @@ class NewUser extends Component
     change_Type(event){
         event.preventDefault();
         var user = this.state.user;
-        console.log(event.target.value)
         user.userType = 'admin';
         this.setState({
             user: user
